@@ -19,10 +19,15 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = NSURL(string: "http://www.reddit.com")!
+        let url = NSURL(string: "http://www.google.com")!
         webView.loadRequest(NSURLRequest(URL: url))
         webView.allowsBackForwardNavigationGestures = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .Plain, target: self, action: "openTapped")
+        let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        let refresh = UIBarButtonItem(barButtonSystemItem: .Refresh, target: webView, action: "reload")
+        
+        toolbarItems = [spacer, refresh]
+        navigationController?.toolbarHidden = false
     }
 
     func openTapped() {
@@ -46,7 +51,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    func refreshTapped() {
+        webView.reload()
+    }
 }
 
